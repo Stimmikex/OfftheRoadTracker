@@ -6,7 +6,7 @@ export const generateGEOJSON = (pData, entity) => {
     let gType = 'LineString';
     if (entity.position) {
         gType = 'Point'
-        const customImageUrl = '../icons/mountain.png';
+        const customImageUrl = '../icons/scenery.png';
         entityData = {
           "type": 'Feature',
           "properties": {
