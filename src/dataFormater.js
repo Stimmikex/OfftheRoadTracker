@@ -1,6 +1,6 @@
 import { GeoJsonDataSource } from "cesium";
-import { generateGEOJSON } from "./components/utils/geoJson.js";
-import { getData, getPointsOfIntrest } from "./components/utils/dataSets.js";
+import { generateGEOJSON } from "./scripts/geoJson.js";
+import { getData, getPointsOfIntrest } from "./scripts/dataSets.js";
 
 export const displayData = async (data) => {
     /* eslint-disable */
@@ -15,7 +15,8 @@ export const sortPointsOfIntrest = async (type, search) => {
     dataSource.entities.values.forEach((entity) => {
         if (entity.properties.natural.getValue() === type) {
             const pData = {
-                "name": entity.properties.natural.getValue(),
+                "name": entity.properties.name.getValue(),
+                "type": entity.properties.natural.getValue()
               }
             const entityData = generateGEOJSON(pData, entity)
             filteredEntities.push(entityData);

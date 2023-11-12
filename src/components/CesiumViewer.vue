@@ -71,7 +71,11 @@ export default {
     async loadScene() {
       console.log(`START: loadScene`);
       try {
+        
+        // eslint-disable-next-line no-undef
+        viewer.creditDisplay.container.style.display = "none";
         await import(/* @vite-ignore */ `../dataFormater.js`);
+        await import(/* @vite-ignore */ `../layers.js`);
       } catch (error) {
         console.log(`ERROR: loadScene`, error);
       } finally {
@@ -83,10 +87,17 @@ export default {
 </script>
 
 <style scoped>
-#cesium-container {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
+  #cesium-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .cesium-scene {
+    height: 100%;
+  }
+  #cesium {
+    height: 100vh;
+  }
+
 </style>
