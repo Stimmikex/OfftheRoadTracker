@@ -1,4 +1,4 @@
-import { GeoJsonDataSource } from "cesium";
+import { GeoJsonDataSource, Entity, Cartesian3 } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getData, getPointsOfIntrest } from "./scripts/dataSets.js";
 
@@ -7,6 +7,18 @@ export const displayData = async (data) => {
     const dataSource = await GeoJsonDataSource.load(await data)
     await viewer.dataSources.add(dataSource);
     await viewer.zoomTo(dataSource);
+}
+
+export const displayBilly = async (data) => {
+    /* eslint-disable */
+    const billies = await data
+    billies.features.forEach((entity) => {
+        const billy = new Entity({
+            position: Cartesian3.fromDegrees(entity.geometry.coordinates[0], entity.geometry.coordinates[1]),
+            billboard: entity.properties.billboard,
+          });
+          viewer.entities.add(billy);
+    })
 }
 
 export const sortPointsOfIntrest = async (type, search) => {
@@ -18,7 +30,7 @@ export const sortPointsOfIntrest = async (type, search) => {
                 "name": entity.properties.name.getValue(),
                 "type": entity.properties.natural.getValue()
               }
-            const entityData = generateGEOJSON(pData, entity)
+            const entityData = generateGEOJSON(pData, entity);
             filteredEntities.push(entityData);
         }
         
@@ -27,7 +39,6 @@ export const sortPointsOfIntrest = async (type, search) => {
         "type": "FeatureCollection",
         "features": filteredEntities
     }
-
     return dataform
 }
 
@@ -56,5 +67,6 @@ export const getRoads = async () => {
 
 // await displayData(getPointsOfIntrest())
 await displayData(getRoads());
-await displayData(sortPointsOfIntrest("peak"));
+// await displayData(sortPointsOfIntrest("peak"));
+await displayBilly(sortPointsOfIntrest("peak"))
 // console.log(await getRoads())
