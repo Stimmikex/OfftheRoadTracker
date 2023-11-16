@@ -16,7 +16,6 @@ export const getCoordinates = (entity) => {
         coordinates.push(trans);
       });
     }
-    console.log(typeof coordinates)
     return coordinates;
   };
   

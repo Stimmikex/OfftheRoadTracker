@@ -52,6 +52,7 @@
   import { changeLayers, toggleLayers, removeLayers } from '../layers.js' 
 
   export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Sidebar',
     methods: {
         changeLayers,

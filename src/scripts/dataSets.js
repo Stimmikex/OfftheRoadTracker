@@ -1,7 +1,7 @@
 import { IonResource } from "cesium";
 
 export const getData = async () => {
-    const resource = await IonResource.fromAssetId(2349146);
+    const resource = await IonResource.fromAssetId(2350499);
     return resource
 }
 

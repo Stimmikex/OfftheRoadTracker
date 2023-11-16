@@ -1,7 +1,7 @@
 import { getCoordinates } from "./coords.js";
 import { NearFarScalar } from "cesium";
 
-export const generateGEOJSON = (pData, entity) => {
+export const generateGEOJSON = (pData, entity, color) => {
     let entityData = {}
     let gType = 'LineString';
     if (entity.position) {
@@ -16,7 +16,7 @@ export const generateGEOJSON = (pData, entity) => {
                 "width": 32,
                 "height": 32,
                 "scaleByDistance": new NearFarScalar(1.5e2, 1.0, 1.5e7, 0.1),
-              }
+              },
           },
           "geometry": {
             "type": gType, // Default to Point type
@@ -28,13 +28,17 @@ export const generateGEOJSON = (pData, entity) => {
     entityData = {
         "type": 'Feature',
         "properties": {
-            pData
+            "data": pData,
+            "polyline": {
+              "material": color // Adjust the color and alpha as needed
+          },   
         },
         "geometry": {
           "type": gType, // Default to Point type
           "coordinates": getCoordinates(entity),
         }
       };
+    console.log(entityData)
     return entityData
 }
 

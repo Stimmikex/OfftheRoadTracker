@@ -12,6 +12,8 @@
     "browserify-zlib": "^0.2.0",
     "cesium": "^1.111.0",
     "core-js": "^3.8.3",
+    "fs": "^0.0.1-security",
+    "geojson": "^0.5.0",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
     "https-browserify": "^1.0.0",

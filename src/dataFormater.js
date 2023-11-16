@@ -1,10 +1,13 @@
-import { GeoJsonDataSource, Entity, Cartesian3 } from "cesium";
+import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getData, getPointsOfIntrest } from "./scripts/dataSets.js";
 
 export const displayData = async (data) => {
     /* eslint-disable */
-    const dataSource = await GeoJsonDataSource.load(await data)
+    const dataSource = await GeoJsonDataSource.load(await data, {clampToGround : true})
+
+    console.log(dataSource)
+
     await viewer.dataSources.add(dataSource);
     await viewer.zoomTo(dataSource);
 }
@@ -23,7 +26,7 @@ export const displayBilly = async (data) => {
 
 export const sortPointsOfIntrest = async (type, search) => {
     const filteredEntities = [];
-    const dataSource = await GeoJsonDataSource.load(await getPointsOfIntrest());
+    const dataSource = await GeoJsonDataSource.load(await getPointsOfIntrest(), {clampToGround : true});
     dataSource.entities.values.forEach((entity) => {
         if (entity.properties.natural.getValue() === type) {
             const pData = {
@@ -54,6 +57,15 @@ export const getRoads = async () => {
             "type": entity.properties.highway.getValue(),
           }
         const entityData = generateGEOJSON(pData, entity)
+        filteredEntities.push(entityData);
+      }
+      if(entity.properties.highway && entity.properties.highway.getValue() === "track" || entity.properties.highway.getValue() === "unclassified") {
+        const pData = {
+          "id": entity.properties.osm_id.getValue(),
+          "name": entity.properties.name.getValue(),
+          "type": entity.properties.highway.getValue(),
+        }
+        const entityData = generateGEOJSON(pData, entity, Color.CYAN.withAlpha(0.5))
         filteredEntities.push(entityData);
       }
     });
