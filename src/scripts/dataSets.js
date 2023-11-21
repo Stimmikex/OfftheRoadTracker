@@ -16,7 +16,7 @@ export const getPointsOfIntrest = async () => {
 }
 
 export const getTracks = async () => {
-    const resource = await IonResource.fromAssetId(2357193);
+    const resource = await IonResource.fromAssetId(2361440);
     return resource
 }
 
