@@ -1,13 +1,10 @@
 import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
-import { getData, getPointsOfIntrest } from "./scripts/dataSets.js";
+import { getData, getPointsOfIntrest, getTracks } from "./scripts/dataSets.js";
 
 export const displayData = async (data) => {
     /* eslint-disable */
     const dataSource = await GeoJsonDataSource.load(await data, {clampToGround : true})
-
-    console.log(dataSource)
-
     await viewer.dataSources.add(dataSource);
     await viewer.zoomTo(dataSource);
 }
@@ -22,6 +19,29 @@ export const displayBilly = async (data) => {
           });
           viewer.entities.add(billy);
     })
+}
+
+export const sortTracks = async (type, search) => {
+  const filteredEntities = [];
+  const dataSource = await GeoJsonDataSource.load(await getTracks(), {clampToGround : true});
+  dataSource.entities.values.forEach((entity) => {
+    // console.log(entity.properties.name.getValue() + ": " + entity.properties.date.getValue())
+      if (true) {
+        const pData = {
+            "name": entity.properties.name.getValue(),
+            "date": entity.properties.date.getValue(),
+            "length": entity.properties.length.getValue(),
+            "description": entity.properties.description.getValue()
+          }
+        const entityData = generateGEOJSON(pData, entity);
+        filteredEntities.push(entityData);
+      }
+  })
+  const dataform = {
+      "type": "FeatureCollection",
+      "features": filteredEntities
+  }
+  return dataform
 }
 
 export const sortPointsOfIntrest = async (type, search) => {
@@ -82,3 +102,4 @@ await displayData(getRoads());
 // await displayData(sortPointsOfIntrest("peak"));
 await displayBilly(sortPointsOfIntrest("peak"))
 // console.log(await getRoads())
+

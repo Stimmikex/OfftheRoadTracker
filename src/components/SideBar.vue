@@ -5,11 +5,20 @@
         <h2>Sidebar</h2>
       </div>
       <ul class="sidebar-menu">
-        <li><a href="#">Peaks</a></li>
-        <li><a href="#">Waterfalls</a></li>
-        <li><a href="#">Different roads</a></li>
+        <li>
+          <lable>Tracks</lable>
+          <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(), 'tracks')"/>
+        </li>
+        <li>
+          <lable>Waterfalls</lable>
+          <input type="checkbox" value="Tracker" />
+        </li>
+        <li>
+          <lable>Peaks</lable>
+          <input type="checkbox" value="Tracker" />
+        </li>
       </ul>
-      <ul>
+      <ul class="sidebar-menu">
         <li><button @click="toggleLayers">Change Rastermap</button></li>
       </ul>
     </div>
@@ -49,15 +58,26 @@
   </style>
   
   <script>
-  import { changeLayers, toggleLayers, removeLayers } from '../layers.js' 
+  import { toggleLayers } from '../layers.js';
+  import { toggleDisplay } from '../scripts/sidebarfunctions.js';
+  import { sortTracks } from '../tracks.js'
 
   export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: 'Sidebar',
     methods: {
-        changeLayers,
         toggleLayers,
-        removeLayers,
-    }
+        toggleDisplay,
+        sortTracks,
+    },
+    mounted() {
+      if (window.viewer) {
+        // Cesium viewer is available, you can use it here
+        const viewer = window.viewer;
+        console.log(viewer);
+      } else {
+        console.error('Cesium viewer is not available.');
+      }
+    },
   };
   </script>

@@ -8,12 +8,10 @@ export const toggleLayers = async () => {
     // Remove the layer
     // eslint-disable-next-line no-undef
     viewer.imageryLayers.remove(viewer.imageryLayers.get(1));
-    console.log('Layer removed');
     } else {
     // Add the layer back (you can replace this with your desired imagery provider)
     // eslint-disable-next-line no-undef
     viewer.imageryLayers.addImageryProvider(layer);
-    console.log('Layer added');
     }
 }
 

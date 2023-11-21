@@ -1,10 +1,10 @@
 <template>
   <main class="app">
+    <div id="cesium-container">
+      <CesiumViewer @viewer-initialized="handleViewerInitialized"/>
+    </div>
     <div>
       <SideBar />
-    </div>
-    <div id="cesium-container">
-      <CesiumViewer />
     </div>
   </main>
 </template>
@@ -19,6 +19,11 @@ export default {
     CesiumViewer,
     SideBar,
   },
+  methods: {
+    handleViewerInitialized(viewer) {
+      window.cesiumViewer = viewer;
+    },
+  },
 };
 </script>
 
@@ -32,6 +37,6 @@ export default {
   display: grid;
   grid-template-rows: auto;
   height: 100vh;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 90% 10%;
 }
 </style>

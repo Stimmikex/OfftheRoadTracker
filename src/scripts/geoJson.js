@@ -38,7 +38,6 @@ export const generateGEOJSON = (pData, entity, color) => {
           "coordinates": getCoordinates(entity),
         }
       };
-    console.log(entityData)
     return entityData
 }
 
