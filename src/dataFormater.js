@@ -2,9 +2,24 @@ import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getData, getPointsOfIntrest, getTracks } from "./scripts/dataSets.js";
 
+/* eslint-disable */
+viewer.scene.globe.depthTestAgainstTerrain = true;
+Entity.supportsMaterialsforEntitiesOnTerrain(viewer.scene)
+
 export const displayData = async (data) => {
     /* eslint-disable */
-    const dataSource = await GeoJsonDataSource.load(await data, {clampToGround : true})
+    const dataSource = await GeoJsonDataSource.load(await data, {clampToGround:true})
+    dataSource.entities.values.forEach((entity) => {
+      if (entity.polygon) {
+        entity.polygon.material = Color.fromAlpha(Color.BLUE, 0.5);
+        entity.polygon.outline = true;
+        entity.polygon.outlineColor = Color.BLACK;
+        entity.polygon.extrudedHeight = 1200;
+        entity.polygon.perPositionHeight = true;
+        entity.polygon.clampToGround = true;
+        viewer.scene.terrainExaggeration = 10.0;
+      }
+    })
     await viewer.dataSources.add(dataSource);
     await viewer.zoomTo(dataSource);
 }
@@ -66,7 +81,7 @@ export const sortPointsOfIntrest = async (type, search) => {
 }
 
 export const getRoads = async () => {
-    const dataSource = await GeoJsonDataSource.load(await getData());
+    const dataSource = await GeoJsonDataSource.load(await getData(), {stroke: Color.HOTPINK});
     const entities = dataSource.entities.values;
     const filteredEntities = [];
     entities.forEach((entity) => {
@@ -98,8 +113,9 @@ export const getRoads = async () => {
 }
 
 // await displayData(getPointsOfIntrest())
-await displayData(getRoads());
+//await displayData(getRoads());
 // await displayData(sortPointsOfIntrest("peak"));
-await displayBilly(sortPointsOfIntrest("peak"))
+//await displayBilly(sortPointsOfIntrest("peak"))
 // console.log(await getRoads())
+// await displayData(getZones())
 

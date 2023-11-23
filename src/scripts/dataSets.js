@@ -20,4 +20,10 @@ export const getTracks = async () => {
     return resource
 }
 
+export const getZones = async () => {
+    const resource = await IonResource.fromAssetId(2363564);
+    return resource
+}
+
+
 export default getData

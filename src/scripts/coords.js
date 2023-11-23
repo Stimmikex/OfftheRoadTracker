@@ -16,6 +16,13 @@ export const getCoordinates = (entity) => {
         coordinates.push(trans);
       });
     }
+    if (entity.polygon) {
+      const positions = entity.polygon.hierarchy.getValue(JulianDate.now()).positions;
+      positions.forEach((position) => {
+        const trans = Cartesian3toSomethangReadable(position)
+        coordinates.push(trans);
+      });
+    }
     return coordinates;
   };
   
