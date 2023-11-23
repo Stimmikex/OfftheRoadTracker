@@ -81,39 +81,49 @@ export const sortPointsOfIntrest = async (type, search) => {
 }
 
 export const getRoads = async () => {
-    const dataSource = await GeoJsonDataSource.load(await getData(), {stroke: Color.HOTPINK});
-    const entities = dataSource.entities.values;
-    const filteredEntities = [];
-    entities.forEach((entity) => {
-      if (entity.properties.ref && entity.properties.ref.getValue() === "208" || entity.properties.ref.getValue() === 'F208' || entity.properties.ref.getValue() === "F225") {
-        const pData = {
-            "id": entity.properties.osm_id.getValue(),
-            "name": entity.properties.name.getValue(),
-            "type": entity.properties.highway.getValue(),
-          }
-        const entityData = generateGEOJSON(pData, entity)
-        filteredEntities.push(entityData);
-      }
-      if(entity.properties.highway && entity.properties.highway.getValue() === "track" || entity.properties.highway.getValue() === "unclassified") {
-        const pData = {
-          "id": entity.properties.osm_id.getValue(),
-          "name": entity.properties.name.getValue(),
-          "type": entity.properties.highway.getValue(),
-        }
-        const entityData = generateGEOJSON(pData, entity, Color.CYAN.withAlpha(0.5))
-        filteredEntities.push(entityData);
-      }
-    });
-    const dataform = {
-        "type": "FeatureCollection",
-        "features": filteredEntities
-      }
-    
-    return dataform
-}
+  const dataSource = await GeoJsonDataSource.load(await getData(), { clampToGround: true });
+  const entities = dataSource.entities.values;
+
+  // Filter entities based on conditions
+  const filteredEntities = entities.filter((entity) => {
+    if (
+      (entity.properties.ref &&
+        (entity.properties.ref.getValue() === '208' ||
+          entity.properties.ref.getValue() === 'F208' ||
+          entity.properties.ref.getValue() === 'F225')) ||
+      (entity.properties.highway &&
+        (entity.properties.highway.getValue() === 'track' ||
+          entity.properties.highway.getValue() === 'unclassified'))
+    ) {
+      return true; // Include this entity in the filtered list
+    }
+    return false; // Exclude this entity from the filtered list
+  });
+
+  // Create a new data source with only the filtered entities
+  const filteredDataSource = new GeoJsonDataSource({ clampToGround: true });
+  filteredEntities.forEach((entity) => {
+    if(entity.properties.ref.getValue() === '208' ||
+    entity.properties.ref.getValue() === 'F208' ||
+    entity.properties.ref.getValue() === 'F225') {
+      entity.polyline.material = Color.RED;
+      entity.polyline.width = 6;
+    }
+    if((entity.properties.highway.getValue() === 'track' ||
+    entity.properties.highway.getValue() === 'unclassified')){
+      entity.polyline.material = Color.HOTPINK;
+      entity.polyline.width = 4;
+    }
+    filteredDataSource.entities.add(entity);
+  });
+
+  // Add the filtered data source to the viewer
+  await viewer.dataSources.add(filteredDataSource);
+  await viewer.zoomTo(filteredDataSource);
+};
 
 // await displayData(getPointsOfIntrest())
-//await displayData(getRoads());
+await getRoads();
 // await displayData(sortPointsOfIntrest("peak"));
 //await displayBilly(sortPointsOfIntrest("peak"))
 // console.log(await getRoads())

@@ -1,5 +1,4 @@
 import { getZones } from './scripts/dataSets.js'
-import { getCoordinates } from './scripts/coords.js'
 import { sortTracks } from './tracks.js'
 import { GeoJsonDataSource, Color, JulianDate } from "cesium";
 
@@ -47,6 +46,13 @@ export const extrudZones = async () => {
           // Extrude the polygon based on the point count
           polygonEntity.polygon.extrudedHeight = 1200 + (100*pointCountInsidePolygon);
           polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
+
+          polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
+          polygonEntity.label = {
+                text: `Custom Property 1 ${pointCountInsidePolygon}`,
+                show: true,
+                font: '14px sans-serif',
+            };
       
           console.log(`Polygon ID: ${polygonEntity.id}, Points inside: ${pointCountInsidePolygon}`);
         }
@@ -55,7 +61,7 @@ export const extrudZones = async () => {
 }
 
 // Function to check if a point is inside a polygon
-function isPointInPolygon(point, polygonPositions) {
+const isPointInPolygon = (point, polygonPositions) => {
     let isInside = false;
     let j = polygonPositions.length - 1;
   
@@ -78,7 +84,7 @@ function isPointInPolygon(point, polygonPositions) {
     return isInside;
 }
 
-function getColorMaterial(extrudedHeight) {
+const getColorMaterial = (extrudedHeight) => {
     // Map extrusion height to color (white to red)
     const minExtrusionHeight = 1200;
     const maxExtrusionHeight = 3000;
