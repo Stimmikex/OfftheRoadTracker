@@ -16,14 +16,25 @@ export const getPointsOfIntrest = async () => {
 }
 
 export const getTracks = async () => {
-    const resource = await IonResource.fromAssetId(2361440);
+    const resource = await IonResource.fromAssetId(2368104);
     return resource
 }
 
 export const getZones = async () => {
-    const resource = await IonResource.fromAssetId(2363564);
+    const resource = await IonResource.fromAssetId(2367983);
     return resource
 }
+
+export const getTracksWithNoCoords = async () => {
+    try {
+      const response = await fetch("./data/nocoords.geojson");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching GeoJSON:', error);
+      throw error;
+    }
+  }
 
 
 export default getData

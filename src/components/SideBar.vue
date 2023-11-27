@@ -13,15 +13,15 @@
           </li>
           <li>
             <lable>2021</lable>
-            <input type="checkbox" value="Tracker" />
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2021'), 'Tracks')"/>
           </li>
           <li>
             <lable>2022</lable>
-            <input type="checkbox" value="Tracker" />
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2022'), 'Tracks')"/>
           </li>
           <li>
             <lable>2023</lable>
-            <input type="checkbox" value="Tracker" />
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2023'), 'Tracks')"/>
           </li>
         </ul>
         <li>
