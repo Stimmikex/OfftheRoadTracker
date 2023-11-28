@@ -9,19 +9,19 @@
           <p>Tracks</p>
           <li>
             <lable>All</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(), 'Tracks')"/>
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('All'), 'Tracks', 'All')"/>
           </li>
           <li>
             <lable>2021</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2021'), 'Tracks')"/>
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2021'), 'Tracks', '2021')"/>
           </li>
           <li>
             <lable>2022</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2022'), 'Tracks')"/>
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2022'), 'Tracks', '2022')"/>
           </li>
           <li>
             <lable>2023</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2023'), 'Tracks')"/>
+            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2023'), 'Tracks', '2023')"/>
           </li>
         </ul>
         <li>

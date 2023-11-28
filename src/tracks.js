@@ -6,7 +6,7 @@ export const sortTracks = async (year) => {
     const filteredEntities = [];
     const dataSource = await GeoJsonDataSource.load(await getTracks(), {clampToGround : true});
     dataSource.entities.values.forEach((entity) => {
-      if (year === undefined || entity.properties.year.getValue() == year) {
+      if (year == 'All' || year === undefined || entity.properties.year.getValue() == year) {
         const pData = {
             "type": "tracks",
             "year": entity.properties.year.getValue(),
@@ -26,6 +26,7 @@ export const sortTracks = async (year) => {
     }
     const redataSource = await GeoJsonDataSource.load(dataform, {clampToGround : true})
     redataSource.name = "Tracks"
+    redataSource.time = year
     return redataSource
   }
 
