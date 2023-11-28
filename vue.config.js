@@ -7,6 +7,7 @@ const cesiumSource = "node_modules/cesium/Source";
 const cesiumWorkers = "../Build/Cesium/Workers";
 
 module.exports = defineConfig({
+  base: "/project/off-the-road-tracker",
   transpileDependencies: true,
   configureWebpack: {
     resolve: {

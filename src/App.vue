@@ -13,6 +13,13 @@
 import CesiumViewer from "./components/CesiumViewer.vue";
 import SideBar from "./components/SideBar.vue"
 
+if(import.meta.hot) {
+  import.meta.hot.on("vite;beforeUpdate", (e) => {
+    const updatePaths = e.updates.map((update) => update.path);
+    if (updatePaths.includes("/src/App.vue")) location.reload();
+  })
+}
+
 export default {
   name: "App",
   components: {
