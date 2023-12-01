@@ -36,12 +36,16 @@
       <ul class="sidebar-menu">
         <p>Zones</p>
         <li>
+          <lable>ExtrudZones</lable>
+          <input type="checkbox" value="Tracker" @click="toggleDisplay(extrudZones(), 'Zones')"/>
+        </li>
+        <li>
           <lable>All</lable>
           <input type="checkbox" value="Tracker" @click="toggleDisplay(getZonesVolume(), 'Zones')"/>
         </li>
         <li>
           <lable>F208</lable>
-          <input type="checkbox" value="Tracker" @click="toggleDisplay(extrudZones(), 'Zones')"/>
+          <input type="checkbox" value="Tracker"/>
         </li>
         <li>
           <lable>F225</lable>
@@ -100,6 +104,11 @@
   export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: 'Sidebar',
+    data() {
+      return {
+        countResult: null,
+      };
+    },
     methods: {
         toggleLayers,
         toggleDisplay,

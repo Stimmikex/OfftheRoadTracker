@@ -2,10 +2,11 @@ import { getZones, getTracksWithNoCoords } from './scripts/dataSets.js'
 import { sortTracks } from './tracks.js'
 import { GeoJsonDataSource, Color, JulianDate } from "cesium";
 
-export const countGeoJSON = async (data, value) => {
+export const countGeoJSON = async (type ,value) => {
+  const nocoords = await getTracksWithNoCoords();
   let counter = 0
-  data.features.forEach((feature) => {
-    if(feature.properties.area == value)
+  nocoords.features.forEach((feature) => {
+    if(feature.properties[type] == value)
       counter++
   })
   return counter
@@ -33,10 +34,7 @@ export const getZonesVolume = async (height) => {
 export const extrudZones = async () => {
     const volumes = await getZonesVolume();
     const points = await sortTracks();
-    const nocoords = await getTracksWithNoCoords();
-    console.log(nocoords)
     volumes.entities.values.forEach(async polygonEntity => {
-      console.log(polygonEntity.name)
         if (polygonEntity.polygon) {
           const polygonPositions = polygonEntity.polygon.hierarchy.getValue(JulianDate.now()).positions;
       
@@ -57,18 +55,14 @@ export const extrudZones = async () => {
             }
             // console.log(await countGeoJSON(nocoords, polygonEntity.properties.data.getValue().area))
           });
-          pointCountInsidePolygon += await countGeoJSON(nocoords, polygonEntity.properties.name.getValue())
+          pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
 
           // Extrude the polygon based on the point count
           polygonEntity.polygon.extrudedHeight = 1200 + (100*pointCountInsidePolygon);
           polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
 
           polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
-          polygonEntity.label = {
-                text: `Custom Property 1 ${pointCountInsidePolygon}`,
-                show: true,
-                font: '14px sans-serif',
-            };
+          console.log(polygonEntity)
         }
       });
       return volumes
