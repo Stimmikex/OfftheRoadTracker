@@ -30,4 +30,15 @@ export const sortTracks = async (year) => {
     return redataSource
   }
 
+  export const getUniqueYears = async () => {
+    try {
+      const dataSource = await GeoJsonDataSource.load(await getTracks(), { clampToGround: true });
+      const uniqueYearsSet = new Set(dataSource.entities.values.map(entity => entity.properties.year.getValue()));
+      const uniqueYearsArray = Array.from(uniqueYearsSet);
+      return uniqueYearsArray;
+    } catch (error) {
+      console.error("Error fetching unique years:", error);
+      throw error; // Rethrow the error to be caught in the mounted hook
+    }
+  };
 export default sortTracks;

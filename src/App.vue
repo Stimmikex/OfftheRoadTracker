@@ -1,10 +1,10 @@
 <template>
   <main class="app">
     <div id="cesium-container">
-      <CesiumViewer @viewer-initialized="handleViewerInitialized"/>
-    </div>
-    <div>
-      <SideBar />
+      <div class="cesium-container__sidebar">
+        <SideBar />
+      </div>
+      <CesiumViewer @viewer-initialized="handleViewerInitialized" class="cesium-container__cesium"/>
     </div>
   </main>
 </template>
@@ -34,16 +34,5 @@ export default {
 };
 </script>
 
-<style>
-.app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  display: grid;
-  grid-template-rows: auto;
-  height: 100vh;
-  grid-template-columns: 90% 10%;
-}
+<style lang="scss">
 </style>

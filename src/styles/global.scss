@@ -1,0 +1,53 @@
+@import "./sidebar";
+@import "./cesium";
+
+.app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+
+  #cesium-container {
+    display: grid;
+    grid-template-rows: 10% 90%;
+    height: 100vh;
+
+    &__sidebar {
+      background-color: #333; /* Example background color */
+      height: 100%;
+    }
+
+    &__cesium {
+      background-color: #ddd; /* Example background color */
+      height: 100%;
+    }
+
+    // Media Query for screens with a minimum width of 800px
+    @media (min-width: 800px) {
+      grid-template-rows: 100%;
+
+      &__sidebar {
+        order: 1; /* Display sidebar first */
+      }
+
+      &__cesium {
+        order: 2; /* Display cesium second */
+      }
+    }
+
+    // Media Query for screens with a minimum width of 1200px
+    @media (min-width: 1200px) {
+      grid-template-columns: 10% 90%;
+      grid-template-rows: 100%;
+
+      &__sidebar {
+        order: 1; /* Display sidebar first */
+      }
+
+      &__cesium {
+        order: 2; /* Display cesium second */
+      }
+    }
+  }
+}

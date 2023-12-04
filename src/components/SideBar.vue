@@ -1,120 +1,97 @@
 <template>
-    <div class="sidebar">
-      <!-- Your sidebar content goes here -->
-      <div class="sidebar-header">
-        <h2>Sidebar</h2>
-      </div>
-      <ul class="sidebar-menu">
-        <ul class="sidebar-menu">
-          <p>Tracks</p>
-          <li>
-            <lable>All</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('All'), 'Tracks', 'All')"/>
-          </li>
-          <li>
-            <lable>2021</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2021'), 'Tracks', '2021')"/>
-          </li>
-          <li>
-            <lable>2022</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2022'), 'Tracks', '2022')"/>
-          </li>
-          <li>
-            <lable>2023</lable>
-            <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks('2023'), 'Tracks', '2023')"/>
-          </li>
-        </ul>
-        <li>
-          <lable>Waterfalls</lable>
-          <input type="checkbox" value="Tracker" />
-        </li>
-        <li>
-          <lable>Peaks</lable>
-          <input type="checkbox" value="Tracker" />
-        </li>
-      </ul>
-      <ul class="sidebar-menu">
-        <p>Zones</p>
-        <li>
-          <lable>ExtrudZones</lable>
-          <input type="checkbox" value="Tracker" @click="toggleDisplay(extrudZones(), 'Zones')"/>
-        </li>
-        <li>
-          <lable>All</lable>
-          <input type="checkbox" value="Tracker" @click="toggleDisplay(getZonesVolume(), 'Zones')"/>
-        </li>
-        <li>
-          <lable>F208</lable>
-          <input type="checkbox" value="Tracker"/>
-        </li>
-        <li>
-          <lable>F225</lable>
-          <input type="checkbox" value="Tracker" />
-        </li>
-        <li>
-          <lable>Other</lable>
-          <input type="checkbox" value="Tracker" />
-        </li>
-      </ul>
-      <ul class="sidebar-menu">
-        <li><button @click="toggleLayers">Change Rastermap</button></li>
-      </ul>
+  <div class="sidebar">
+    <!-- Your sidebar content goes here -->
+    <div class="sidebar-header">
+      <h2>Sidebar</h2>
     </div>
-  </template>
-  
-  <style scoped>
-  .sidebar {
-    height: 100%;
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  .sidebar-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar-menu {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-menu li {
-    margin-bottom: 10px;
-  }
-  
-  .sidebar-menu a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  
-  .sidebar-menu a:hover {
-    text-decoration: underline;
-  }
-  </style>
-  
-  <script>
-  import { toggleLayers } from '../layers.js';
-  import { toggleDisplay } from '../scripts/sidebarfunctions.js';
-  import { sortTracks } from '../tracks.js'
-  import { getZonesVolume, extrudZones } from '../zones.js'
+    <ul class="sidebar-menu">
+      <ul class="sidebar-menu">
+        <p>Tracks</p>
+        <SideBarMenuItem :year="All"></SideBarMenuItem>
+        <div v-if="uniqueYears && uniqueYears.length > 0">
+          <div v-for="year in uniqueYears" :key="year">
+            <SideBarMenuItem :year="year"></SideBarMenuItem>
+          </div>
+        </div>
+      </ul>
+      <li>
+        <label>Waterfalls</label>
+        <input type="checkbox" value="Tracker" />
+      </li>
+      <li>
+        <label>Peaks</label>
+        <input type="checkbox" value="Tracker" />
+      </li>
+    </ul>
+    <ul class="sidebar-menu">
+      <p>Zones</p>
+      <li>
+        <label>ExtrudZones</label>
+        <input type="checkbox" value="Tracker" @click="toggleDisplay(extrudZones(), 'Zones')"/>
+      </li>
+      <li>
+        <label>All</label>
+        <input type="checkbox" value="Tracker" @click="toggleDisplay(getZonesVolume(), 'Zones')"/>
+      </li>
+      <li>
+        <label>F208</label>
+        <input type="checkbox" value="Tracker"/>
+      </li>
+      <li>
+        <label>F225</label>
+        <input type="checkbox" value="Tracker" />
+      </li>
+      <li>
+        <label>Other</label>
+        <input type="checkbox" value="Tracker" />
+      </li>
+    </ul>
+    <ul class="sidebar-menu">
+      <li><button @click="toggleLayers">Change Rastermap</button></li>
+    </ul>
+    <div v-if="uniqueYears && uniqueYears.length > 0">
+      <div v-for="year in uniqueYears" :key="year">
+        <SideBarMenuItem :year="year"></SideBarMenuItem>
+      </div>
+    </div>
+  </div>
+</template>
 
-  export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: 'Sidebar',
-    data() {
-      return {
-        countResult: null,
-      };
-    },
-    methods: {
-        toggleLayers,
-        toggleDisplay,
-        sortTracks,
-        getZonesVolume,
-        extrudZones,
-    },
-  };
-  </script>
+<style lang="scss" scoped>
+</style>
+
+<script>
+import { toggleLayers } from '../layers.js';
+import { toggleDisplay } from '../scripts/sidebarfunctions.js';
+import { sortTracks, getUniqueYears } from '../tracks.js'
+import { getZonesVolume, extrudZones } from '../zones.js'
+
+import SideBarMenuItem from "./SideBarMenuItem.vue"
+
+export default {
+  name: 'Side-bar',
+  components: {
+    SideBarMenuItem,
+  },
+  data() {
+    return {
+      uniqueYears: [],
+    };
+  },
+  methods: {
+    toggleLayers,
+    toggleDisplay,
+    sortTracks,
+    getZonesVolume,
+    extrudZones,
+  },
+  async mounted() {
+      try {
+        this.uniqueYears = await getUniqueYears();
+        console.log(this.uniqueYears)
+      } catch (error) {
+        console.error('Error fetching unique years:', error);
+      }
+  },
+};
+</script>
