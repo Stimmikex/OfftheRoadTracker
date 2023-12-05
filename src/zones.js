@@ -30,7 +30,41 @@ export const getZonesVolume = async (height) => {
     })
     return dataSource
 }
+export const extrudZonesByDate = async (month, years) => {
+  const volumes = await getZonesVolume();
+  const points = await sortTracks();
+  volumes.entities.values.forEach(async polygonEntity => {
+      if (polygonEntity.polygon) {
+        const polygonPositions = polygonEntity.polygon.hierarchy.getValue(JulianDate.now()).positions;
+    
+        // Count the number of points inside the polygon
+        let pointCountInsidePolygon = 0;
+    
+        // Iterate through each point
+        points.entities.values.forEach(pointEntity => {
+          // console.log(pointEntity.properties.data.getValue().area)
+          if (pointEntity.position) {
+            const point = pointEntity.position.getValue(JulianDate.now());
+            
+            // Check if the point is inside the polygon
+            if (isPointInPolygon(point, polygonPositions)) {
+              pointCountInsidePolygon++;
+            }
 
+          }
+          // console.log(await countGeoJSON(nocoords, polygonEntity.properties.data.getValue().area))
+        });
+        pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
+
+        // Extrude the polygon based on the point count
+        polygonEntity.polygon.extrudedHeight = 1200 + (100*pointCountInsidePolygon);
+        polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
+
+        polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
+      }
+    });
+    return volumes
+} 
 export const extrudZones = async () => {
     const volumes = await getZonesVolume();
     const points = await sortTracks();
