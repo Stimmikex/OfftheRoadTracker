@@ -97,7 +97,7 @@ export default {
     height: 100%;
   }
   #cesium {
-    height: 100vh;
+    height: 100%;
   }
 
 </style>

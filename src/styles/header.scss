@@ -1,0 +1,39 @@
+.hamburger-menu {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    img {
+        width: 100%;
+    }
+  }
+
+.hamburger {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 30px;
+    height: 20px;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+.bar {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+}
+
+.sidebar-container {
+    position: absolute;
+    background: #396c99;
+    z-index: 1;
+    /* margin-top: 20%; */
+    top: 10%;
+    width: 100%;
+    @media (min-width: 1200px) {
+        left: 10%;
+        top: auto;
+        width: 20%;
+    }
+}

@@ -1,50 +1,13 @@
 <template>
   <div class="sidebar">
-    <div>
-      <p>[Image here]</p>
+    <div class="hamburger-menu">
+      <img src="../../public/icons/logo.svg"/>
     </div>
     <div>
        <Hamburger></Hamburger>
     </div>
-    <div>
+    <div class="hamburger-menu">
       <p>[Settings]</p>
-    </div>
-    <!-- Your sidebar content goes here -->
-    <div class="sidebar-header">
-      <h2>Sidebar</h2>
-    </div>
-    <div>
-      <p> {{ window.width }}</p>
-      <ul class="sidebar-menu">
-        <li>
-          <p>Tracks</p>
-          <SideBarMenuItem :year="'All'" :type="'Tracks'"></SideBarMenuItem>
-          <div v-if="uniqueYears && uniqueYears.length > 0">
-            <div v-for="year in uniqueYears" :key="year">
-              <SideBarMenuItem :year="year" :type="'Tracks'"></SideBarMenuItem>
-            </div>
-          </div>
-        </li>
-        <li>
-          <p>Locations</p>
-          <div>
-            <label>Waterfalls</label>
-            <input type="checkbox" value="Tracker" />
-          </div>
-          <div>
-            <label>Peaks</label>
-            <input type="checkbox" value="Tracker" />
-          </div>
-        </li>
-        <li>
-          <div>
-            <p>Zones</p>
-            <SideBarMenuItem :type="'Zones'" :data="extrudZones()" :name="'Extruded'"></SideBarMenuItem>
-            <SideBarMenuItem :type="'Zones'" :data="getZonesVolume()" :name="'All'"></SideBarMenuItem>
-          </div>
-        </li>
-        <li><button @click="toggleLayers">Change Rastermap</button></li>
-      </ul>
     </div>
   </div>
 </template>
@@ -58,13 +21,11 @@ import { toggleDisplay } from '../scripts/sidebarfunctions.js';
 import { sortTracks, getUniqueYears } from '../tracks.js'
 import { getZonesVolume, extrudZones } from '../zones.js'
 
-import SideBarMenuItem from "./SideBarMenuItem.vue"
 import Hamburger from "./Header/Hamburger.vue"
 
 export default {
   name: 'Side-bar',
   components: {
-    SideBarMenuItem,
     Hamburger,
   },
   data() {

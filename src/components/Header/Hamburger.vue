@@ -1,9 +1,11 @@
 <template>
-    <div class="hamburger">
-      <div class="sidebar-header">
-        <h2>Sidebar</h2>
+    <div class="hamburger-menu">
+      <div class="hamburger" @click="toggleMenu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
       </div>
-      <div>
+      <div v-if="isMenuOpen" class="sidebar-container">
         <ul class="sidebar-menu">
           <li>
             <p>Tracks</p>
@@ -47,7 +49,7 @@
   import { sortTracks, getUniqueYears } from '../../tracks.js'
   import { getZonesVolume, extrudZones } from '../../zones.js'
   
-  import SideBarMenuItem from "./SideBarMenuItem.vue"
+  import SideBarMenuItem from "../SideBarMenuItem.vue"
   
   export default {
     name: 'Side-bar',
@@ -56,6 +58,7 @@
     },
     data() {
       return {
+        isMenuOpen: false,
         uniqueYears: [],
       };
     },
@@ -65,6 +68,9 @@
       sortTracks,
       getZonesVolume,
       extrudZones,
+      toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+      },
     },
     async mounted() {
         try {
