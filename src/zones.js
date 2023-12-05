@@ -62,7 +62,6 @@ export const extrudZones = async () => {
           polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
 
           polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
-          console.log(polygonEntity)
         }
       });
       return volumes

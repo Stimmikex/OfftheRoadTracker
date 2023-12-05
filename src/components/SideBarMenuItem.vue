@@ -1,7 +1,11 @@
 <template>
-    <li>
-        <label>{{ year }}</label>
-        <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(year), 'Tracks', year)"/>
+    <li v-if="type == 'Tracks'">
+      <label>{{ year }}</label>
+      <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(year), 'Tracks', year)"/>
+    </li>
+    <li v-else-if="type == 'Zones'">
+      <label>{{ name }}</label>
+      <input type="checkbox" value="Tracker" @click="toggleDisplay(data, 'Zones')"/>
     </li>
 </template>
   
@@ -16,7 +20,7 @@
   
   export default {
     name: 'Side-bar',
-    props: ['year'],
+    props: ['year', 'type', 'data', 'name'],
     data() {
       return {
         countResult: null,
@@ -30,7 +34,10 @@
       extrudZones,
     },
     mounted() {
-        console.log('Year prop in mounted hook:', this.year);
+        this.year;
+        this.type;
+        this.name;
+        this.data;
     }
   };
   </script>

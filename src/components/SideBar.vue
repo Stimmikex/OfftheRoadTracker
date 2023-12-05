@@ -1,58 +1,50 @@
 <template>
   <div class="sidebar">
+    <div>
+      <p>[Image here]</p>
+    </div>
+    <div>
+       <Hamburger></Hamburger>
+    </div>
+    <div>
+      <p>[Settings]</p>
+    </div>
     <!-- Your sidebar content goes here -->
     <div class="sidebar-header">
       <h2>Sidebar</h2>
     </div>
-    <ul class="sidebar-menu">
+    <div>
+      <p> {{ window.width }}</p>
       <ul class="sidebar-menu">
-        <p>Tracks</p>
-        <SideBarMenuItem :year="All"></SideBarMenuItem>
-        <div v-if="uniqueYears && uniqueYears.length > 0">
-          <div v-for="year in uniqueYears" :key="year">
-            <SideBarMenuItem :year="year"></SideBarMenuItem>
+        <li>
+          <p>Tracks</p>
+          <SideBarMenuItem :year="'All'" :type="'Tracks'"></SideBarMenuItem>
+          <div v-if="uniqueYears && uniqueYears.length > 0">
+            <div v-for="year in uniqueYears" :key="year">
+              <SideBarMenuItem :year="year" :type="'Tracks'"></SideBarMenuItem>
+            </div>
           </div>
-        </div>
+        </li>
+        <li>
+          <p>Locations</p>
+          <div>
+            <label>Waterfalls</label>
+            <input type="checkbox" value="Tracker" />
+          </div>
+          <div>
+            <label>Peaks</label>
+            <input type="checkbox" value="Tracker" />
+          </div>
+        </li>
+        <li>
+          <div>
+            <p>Zones</p>
+            <SideBarMenuItem :type="'Zones'" :data="extrudZones()" :name="'Extruded'"></SideBarMenuItem>
+            <SideBarMenuItem :type="'Zones'" :data="getZonesVolume()" :name="'All'"></SideBarMenuItem>
+          </div>
+        </li>
+        <li><button @click="toggleLayers">Change Rastermap</button></li>
       </ul>
-      <li>
-        <label>Waterfalls</label>
-        <input type="checkbox" value="Tracker" />
-      </li>
-      <li>
-        <label>Peaks</label>
-        <input type="checkbox" value="Tracker" />
-      </li>
-    </ul>
-    <ul class="sidebar-menu">
-      <p>Zones</p>
-      <li>
-        <label>ExtrudZones</label>
-        <input type="checkbox" value="Tracker" @click="toggleDisplay(extrudZones(), 'Zones')"/>
-      </li>
-      <li>
-        <label>All</label>
-        <input type="checkbox" value="Tracker" @click="toggleDisplay(getZonesVolume(), 'Zones')"/>
-      </li>
-      <li>
-        <label>F208</label>
-        <input type="checkbox" value="Tracker"/>
-      </li>
-      <li>
-        <label>F225</label>
-        <input type="checkbox" value="Tracker" />
-      </li>
-      <li>
-        <label>Other</label>
-        <input type="checkbox" value="Tracker" />
-      </li>
-    </ul>
-    <ul class="sidebar-menu">
-      <li><button @click="toggleLayers">Change Rastermap</button></li>
-    </ul>
-    <div v-if="uniqueYears && uniqueYears.length > 0">
-      <div v-for="year in uniqueYears" :key="year">
-        <SideBarMenuItem :year="year"></SideBarMenuItem>
-      </div>
     </div>
   </div>
 </template>
@@ -67,15 +59,20 @@ import { sortTracks, getUniqueYears } from '../tracks.js'
 import { getZonesVolume, extrudZones } from '../zones.js'
 
 import SideBarMenuItem from "./SideBarMenuItem.vue"
+import Hamburger from "./Header/Hamburger.vue"
 
 export default {
   name: 'Side-bar',
   components: {
     SideBarMenuItem,
+    Hamburger,
   },
   data() {
     return {
       uniqueYears: [],
+      window: {
+        width: 0
+      }
     };
   },
   methods: {
@@ -84,6 +81,11 @@ export default {
     sortTracks,
     getZonesVolume,
     extrudZones,
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+      console.log(this.window.width)
+    }
   },
   async mounted() {
       try {
@@ -92,6 +94,10 @@ export default {
       } catch (error) {
         console.error('Error fetching unique years:', error);
       }
+  },
+  created() {
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
   },
 };
 </script>
