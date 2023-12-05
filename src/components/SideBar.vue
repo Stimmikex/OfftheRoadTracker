@@ -7,7 +7,7 @@
        <Hamburger></Hamburger>
     </div>
     <div class="hamburger-menu">
-      <p>[Settings]</p>
+      <TimelineContainer></TimelineContainer>
     </div>
   </div>
 </template>
@@ -22,11 +22,13 @@ import { sortTracks, getUniqueYears } from '../tracks.js'
 import { getZonesVolume, extrudZones } from '../zones.js'
 
 import Hamburger from "./Header/Hamburger.vue"
+import TimelineContainer from "./Timeline/TimelineContainer.vue"
 
 export default {
   name: 'Side-bar',
   components: {
     Hamburger,
+    TimelineContainer,
   },
   data() {
     return {
@@ -51,7 +53,6 @@ export default {
   async mounted() {
       try {
         this.uniqueYears = await getUniqueYears();
-        console.log(this.uniqueYears)
       } catch (error) {
         console.error('Error fetching unique years:', error);
       }

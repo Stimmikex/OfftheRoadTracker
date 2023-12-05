@@ -75,7 +75,6 @@
     async mounted() {
         try {
           this.uniqueYears = await getUniqueYears();
-          console.log(this.uniqueYears)
         } catch (error) {
           console.error('Error fetching unique years:', error);
         }

@@ -30,9 +30,13 @@ export const getZonesVolume = async (height) => {
     })
     return dataSource
 }
-export const extrudZonesByDate = async (month, years) => {
+export const extrudZonesByDate = async (newPoints) => {
   const volumes = await getZonesVolume();
-  const points = await sortTracks();
+  const points = await newPoints;
+
+  const baseValueHeight = 1200;
+  const heightChangePerPoint = 1000;  
+
   volumes.entities.values.forEach(async polygonEntity => {
       if (polygonEntity.polygon) {
         const polygonPositions = polygonEntity.polygon.hierarchy.getValue(JulianDate.now()).positions;
@@ -41,7 +45,7 @@ export const extrudZonesByDate = async (month, years) => {
         let pointCountInsidePolygon = 0;
     
         // Iterate through each point
-        points.entities.values.forEach(pointEntity => {
+        await points.entities.values.forEach(pointEntity => {
           // console.log(pointEntity.properties.data.getValue().area)
           if (pointEntity.position) {
             const point = pointEntity.position.getValue(JulianDate.now());
@@ -54,13 +58,14 @@ export const extrudZonesByDate = async (month, years) => {
           }
           // console.log(await countGeoJSON(nocoords, polygonEntity.properties.data.getValue().area))
         });
-        pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
+        // pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
 
         // Extrude the polygon based on the point count
-        polygonEntity.polygon.extrudedHeight = 1200 + (100*pointCountInsidePolygon);
+        polygonEntity.polygon.extrudedHeight = baseValueHeight + (heightChangePerPoint*pointCountInsidePolygon);
         polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
 
         polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
+        console.log(pointCountInsidePolygon)
       }
     });
     return volumes
@@ -68,6 +73,10 @@ export const extrudZonesByDate = async (month, years) => {
 export const extrudZones = async () => {
     const volumes = await getZonesVolume();
     const points = await sortTracks();
+
+    const baseValueHeight = 1200;
+    const heightChangePerPoint = 100;  
+
     volumes.entities.values.forEach(async polygonEntity => {
         if (polygonEntity.polygon) {
           const polygonPositions = polygonEntity.polygon.hierarchy.getValue(JulianDate.now()).positions;
@@ -92,7 +101,7 @@ export const extrudZones = async () => {
           pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
 
           // Extrude the polygon based on the point count
-          polygonEntity.polygon.extrudedHeight = 1200 + (100*pointCountInsidePolygon);
+          polygonEntity.polygon.extrudedHeight = baseValueHeight + (heightChangePerPoint*pointCountInsidePolygon);
           polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
 
           polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)

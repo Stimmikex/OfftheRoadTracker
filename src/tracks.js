@@ -33,8 +33,7 @@ export const getTracksByDate = async (date) => {
   const filteredEntities = [];
   const dataSource = await GeoJsonDataSource.load(await getTracks(), {clampToGround : true});
   dataSource.entities.values.forEach((entity) => {
-    console.log(entity.properties.date.getValue() == date)
-    if (entity.properties.date.getValue() == date) {
+    if (convertTimeFormat(entity.properties.date.getValue()).toISOString().split('T')[0] == date) {
       const pData = {
           "type": "tracks",
           "year": entity.properties.year.getValue(),
@@ -58,6 +57,7 @@ export const getTracksByDate = async (date) => {
 
   // eslint-disable-next-line no-undef
   // viewer.dataSources.add(redataSource);
+  console.log(redataSource)
   return redataSource
 }
 
