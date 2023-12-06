@@ -3,11 +3,9 @@
     <div class="hamburger-menu">
       <img src="../../public/icons/logo.svg"/>
     </div>
-    <div>
-       <Hamburger></Hamburger>
-    </div>
+    <Hamburger></Hamburger>
     <div class="hamburger-menu">
-      <TimelineContainer></TimelineContainer>
+      <p>[Settings]</p>
     </div>
   </div>
 </template>
@@ -22,13 +20,11 @@ import { sortTracks, getUniqueYears } from '../tracks.js'
 import { getZonesVolume, extrudZones } from '../zones.js'
 
 import Hamburger from "./Header/Hamburger.vue"
-import TimelineContainer from "./Timeline/TimelineContainer.vue"
 
 export default {
   name: 'Side-bar',
   components: {
     Hamburger,
-    TimelineContainer,
   },
   data() {
     return {

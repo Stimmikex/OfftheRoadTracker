@@ -5,6 +5,7 @@
         <SideBar />
       </div>
       <CesiumViewer @viewer-initialized="handleViewerInitialized" class="cesium-container__cesium"/>
+      <TimelineContainer></TimelineContainer>
     </div>
   </main>
 </template>
@@ -12,6 +13,7 @@
 <script>
 import CesiumViewer from "./components/CesiumViewer.vue";
 import SideBar from "./components/SideBar.vue"
+import TimelineContainer from "./components/Timeline/TimelineContainer.vue";
 
 if(import.meta.hot) {
   import.meta.hot.on("vite;beforeUpdate", (e) => {
@@ -22,9 +24,16 @@ if(import.meta.hot) {
 
 export default {
   name: "App",
+  data() {
+    return {
+      default_map_setup: false,
+    };
+  },
+  map_functions: null,
   components: {
     CesiumViewer,
     SideBar,
+    TimelineContainer,
   },
   methods: {
     handleViewerInitialized(viewer) {

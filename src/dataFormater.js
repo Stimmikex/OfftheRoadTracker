@@ -1,7 +1,6 @@
 import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getData, getPointsOfIntrest, getTracks } from "./scripts/dataSets.js";
-import { getTracksByDate, getTimelineOfTracks } from "./tracks.js"
 
 /* eslint-disable */
 viewer.scene.globe.depthTestAgainstTerrain = true;
@@ -123,7 +122,5 @@ export const getRoads = async () => {
   await viewer.zoomTo(filteredDataSource);
 };
 
-await getTracksByDate("20/6/2021");
 await getRoads();
-await getTimelineOfTracks();
 

@@ -65,7 +65,7 @@ export default {
         if (!this.isPlaying) {
           clearInterval(interval);
         }
-      }, 1000); // Adjust the interval as needed (e.g., 1000 milliseconds = 1 second)
+      }, 3000); // Adjust the interval as needed (e.g., 1000 milliseconds = 1 second)
     },
   },
 };
@@ -77,6 +77,14 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 20px;
+  width: 20em;
+  padding: 1em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  justify-content: flex-end;
+  background: cadetblue;
+  border-radius: 1em;
 }
 
 .slider {

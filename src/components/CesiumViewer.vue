@@ -12,6 +12,8 @@ const _cesium = {
   viewer: null
 };
 
+/*global viewer */
+
 Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMzA1N2Q5Yy1lNTFjLTQyZjAtOGZlOC1iNmFiMGYwNzkxYzciLCJpZCI6MTcxMzA5LCJpYXQiOjE2OTcwNjI5MDl9.qTgjMH_52CL-7MkIaEoT8OmFbTUeXezLzor_IfO_-rQ";
 
 export default {
@@ -19,9 +21,11 @@ export default {
     return {
       viewerObserver: null,
       viewerWidth: 0,
-      viewerHeight: 0
+      viewerHeight: 0,
+      default_map_setup: false,
     };
   },
+  map_functions: null,
   computed: {
     _cesium() {
       return _cesium;
@@ -45,7 +49,10 @@ export default {
         geocoder: false,
         animation: false,
         timeline: false,
-        fullscreenButton: false
+        fullscreenButton: false,
+        maximumRenderTimeChange : Infinity,
+        requestRenderMode : true,
+        targetFrameRate: 60,
       });
 
       if (window) {
@@ -71,9 +78,8 @@ export default {
     async loadScene() {
       console.log(`START: loadScene`);
       try {
-        
-        // eslint-disable-next-line no-undef
         viewer.creditDisplay.container.style.display = "none";
+        viewer.scene.debugShowFramesPerSecond = true;
         await import(/* @vite-ignore */ `../dataFormater.js`);
         await import(/* @vite-ignore */ `../layers.js`);
       } catch (error) {
