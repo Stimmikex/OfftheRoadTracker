@@ -60,12 +60,14 @@ export const extrudZonesByDate = async (newPoints) => {
         });
         // pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
 
-        // Extrude the polygon based on the point count
         polygonEntity.polygon.extrudedHeight = baseValueHeight + (heightChangePerPoint*pointCountInsidePolygon);
         polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
 
         polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
-        console.log(pointCountInsidePolygon)
+        polygonEntity.description =
+        `<div>
+          <p>Counter: ${pointCountInsidePolygon} tracks</p>
+        </div>`
       }
     });
     return volumes
@@ -96,15 +98,17 @@ export const extrudZones = async () => {
               }
 
             }
-            // console.log(await countGeoJSON(nocoords, polygonEntity.properties.data.getValue().area))
           });
           pointCountInsidePolygon += await countGeoJSON('area', polygonEntity.properties.name.getValue())
 
           // Extrude the polygon based on the point count
           polygonEntity.polygon.extrudedHeight = baseValueHeight + (heightChangePerPoint*pointCountInsidePolygon);
           polygonEntity.polygon.material = getColorMaterial(polygonEntity.polygon.extrudedHeight.getValue())
-
-          polygonEntity.properties.addProperty('Counter', pointCountInsidePolygon)
+          polygonEntity.description =
+          `<div>
+            <p>Counter: ${pointCountInsidePolygon} tracks</p>
+            <p>None Geo Marker: ${await countGeoJSON('area', polygonEntity.properties.name.getValue())}</p>
+          </div>`
         }
       });
       return volumes
