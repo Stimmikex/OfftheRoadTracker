@@ -1,6 +1,6 @@
-import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
+import { GeoJsonDataSource, Entity, Color, JulianDate} from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
-import { getData, getPointsOfIntrest, getTracks } from "./scripts/dataSets.js";
+import { getData, getTracks } from "./scripts/dataSets.js";
 import { getRoadMainColor, getRoadSecondColor } from "./scripts/utilityValues.js";
 
 /* eslint-disable */
@@ -29,9 +29,9 @@ export const displayData = async (data) => {
 export const displayBilly = async (data) => {
     /* eslint-disable */
     const billies = await data
-    billies.features.forEach((entity) => {
+    billies.entities.values.forEach((entity) => {
         const billy = new Entity({
-            position: Cartesian3.fromDegrees(entity.geometry.coordinates[0], entity.geometry.coordinates[1]),
+            position: entity.position.getValue(JulianDate.now()),
             billboard: entity.properties.billboard,
           });
           viewer.entities.add(billy);
@@ -59,27 +59,6 @@ export const sortTracks = async (date) => {
       "features": filteredEntities
   }
   return dataform
-}
-
-export const sortPointsOfIntrest = async (type, search) => {
-    const filteredEntities = [];
-    const dataSource = await GeoJsonDataSource.load(await getPointsOfIntrest(), {clampToGround : true});
-    dataSource.entities.values.forEach((entity) => {
-        if (entity.properties.natural.getValue() === type) {
-            const pData = {
-                "name": entity.properties.name.getValue(),
-                "type": entity.properties.natural.getValue()
-              }
-            const entityData = generateGEOJSON(pData, entity);
-            filteredEntities.push(entityData);
-        }
-        
-    })
-    const dataform = {
-        "type": "FeatureCollection",
-        "features": filteredEntities
-    }
-    return dataform
 }
 
 export const getRoads = async () => {
@@ -125,4 +104,5 @@ export const getRoads = async () => {
 };
 
 await getRoads();
+await sortPointsOfIntrest('peak')
 

@@ -80,7 +80,6 @@ export default {
       try {
         viewer.creditDisplay.container.style.display = "none";
         viewer.scene.debugShowFramesPerSecond = true;
-        console.log(viewer)
         await import(/* @vite-ignore */ `../dataFormater.js`);
         await import(/* @vite-ignore */ `../layers.js`);
       } catch (error) {

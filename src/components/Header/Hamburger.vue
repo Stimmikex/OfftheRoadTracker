@@ -18,12 +18,9 @@
           </li>
           <li>
             <p>Locations</p>
+            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('peak')" :name="'Peaks'"></SideBarMenuItem>
             <div>
               <label>Waterfalls</label>
-              <input type="checkbox" value="Tracker" />
-            </div>
-            <div>
-              <label>Peaks</label>
               <input type="checkbox" value="Tracker" />
             </div>
           </li>
@@ -48,6 +45,7 @@
   import { toggleDisplay } from '../../scripts/sidebarfunctions.js';
   import { sortTracks, getUniqueYears } from '../../tracks.js'
   import { getZonesVolume, extrudZones } from '../../zones.js'
+  import { sortPointsOfIntrest } from '../../points.js'
   
   import SideBarMenuItem from "../SideBarMenuItem.vue"
   
@@ -68,6 +66,7 @@
       sortTracks,
       getZonesVolume,
       extrudZones,
+      sortPointsOfIntrest,
       toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;
       },

@@ -7,6 +7,10 @@
       <label>{{ name }}</label>
       <input type="checkbox" value="Tracker" @click="toggleDisplay(data, 'Zones')"/>
     </li>
+    <li v-else-if="type == 'Points'">
+      <label>{{ name }}</label>
+      <input type="checkbox" value="Tracker" @click="toggleDisplay(data, 'Points')"/>
+    </li>
 </template>
   
   <style lang="scss" scoped>
