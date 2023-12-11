@@ -1,5 +1,6 @@
 <template>
-  <div class="slider-container">
+  <div class="sidePop__sliderContainer">
+    <h2>Timelaps</h2>
     <input
       type="range"
       v-model="selectedIndex"
@@ -11,6 +12,7 @@
     <!-- {{ console.log(selectedValue) }} -->
     <div class="selected-value">{{ selectedValue }}</div>
     <button @click="play">Play</button>
+    <button @click="stop">Stop</button>
   </div>
 </template>
 
@@ -42,8 +44,6 @@ export default {
   watch: {
     async selectedIndex(newValue) {
       this.$emit('input', this.values[newValue]);
-      // console.log(await getTracksByDate(this.values[newValue]))
-      // console.log(await extrudZonesByDate(getTracksByDate(this.values[newValue])));
       await changeDisplay(extrudZonesByDate(getTracksByDate(this.values[newValue])), 'Zones')
     },
     isPlaying(newValue) {
@@ -56,6 +56,9 @@ export default {
     play() {
       this.isPlaying = true;
     },
+    stop() {
+      this.isPlaying = false;
+    },
     playSlider() {
       const lastIndex = this.values.length - 1;
       let currentIndex = this.selectedIndex;
@@ -65,27 +68,13 @@ export default {
         if (!this.isPlaying) {
           clearInterval(interval);
         }
-      }, 3000); // Adjust the interval as needed (e.g., 1000 milliseconds = 1 second)
+      }, 3000);
     },
   },
 };
 </script>
 
 <style>
-.slider-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
-  width: 20em;
-  padding: 1em;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  justify-content: flex-end;
-  background: cadetblue;
-  border-radius: 1em;
-}
 
 .slider {
   width: 80%;

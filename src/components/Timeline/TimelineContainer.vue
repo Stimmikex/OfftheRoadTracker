@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <SliderBar :values="uniqueDates" v-model="selectedValue"></SliderBar>
-    </div>
+  <SliderBar :values="uniqueDates" v-model="selectedValue"></SliderBar>
 </template>
   
 <style lang="scss" scoped>
