@@ -21,11 +21,6 @@
   export default {
     name: 'Side-bar',
     props: ['year', 'type', 'data', 'name'],
-    data() {
-      return {
-        countResult: null,
-      };
-    },
     methods: {
       toggleLayers,
       toggleDisplay,

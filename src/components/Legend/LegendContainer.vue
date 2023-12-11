@@ -2,15 +2,23 @@
     <div class="sidePop__legendContainer">
         <h2>Legend</h2>
         <p>Roads</p>
-        <ul>
-            <li>
-                <p>Main</p>
-            </li>
-            <li>
-                <p>Side roads</p>
-            </li>
-        </ul>
-        <p>Color Changes</p>
+        <div class="sidePop__legendContainer__roads">
+            <div>
+                <p>Main Roads</p>
+                <div :style="{ background: `${getRoadMainColor().toCssColorString()}`}" class="roadColor"></div>
+            </div>
+            <div>
+                <p>Side Roads</p>
+                <div :style="{ background: `${getRoadSecondColor().toCssColorString()}`}" class="roadColor"></div>
+            </div>
+        </div>
+        <div>
+            <p>Color Changes - Based on the amount of tracks</p>
+            <div :style="{ background: `linear-gradient(to right, ${getColorGradian()[0]}, ${getColorGradian()[1]})`}" class="sidePop__legendContainer__gradianColor">
+                <p>0</p>
+                <p>46</p>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -18,6 +26,9 @@
 </style>
   
 <script>
+
+import { getColorGradian } from '../../zones.js'
+import { getRoadMainColor, getRoadSecondColor } from '../../scripts/utilityValues.js'
   
   export default {
     name: 'Legend-Container',
@@ -29,6 +40,9 @@
       };
     },
     methods: {
+        getColorGradian,
+        getRoadMainColor,
+        getRoadSecondColor,
     },
     async mounted() {
     },

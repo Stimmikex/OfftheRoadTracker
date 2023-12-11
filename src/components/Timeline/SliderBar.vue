@@ -68,7 +68,7 @@ export default {
         if (!this.isPlaying) {
           clearInterval(interval);
         }
-      }, 3000);
+      }, 1000);
     },
   },
 };

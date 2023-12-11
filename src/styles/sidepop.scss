@@ -1,3 +1,5 @@
+@import "./utility";
+
 .sidePop {
     display: flex;
     flex-direction: column;
@@ -15,6 +17,21 @@
         padding: 1em;
         background: cadetblue;
         margin: 0.5em;
+        text-align: justify;
+        &__gradianColor {
+            height: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p {
+                margin: 1em;
+            }
+        }
+        &__roads {
+            .roadColor {
+                height: 1em;
+            }
+        }
     }
     &__sliderContainer {
         width: 100%;
@@ -34,7 +51,7 @@
         right: 0;
         justify-content: flex-end;
         border-radius: 1em;
-        background-color: aqua;
+        background-color: $mainColor;
         img {
             width: 100%;
         }

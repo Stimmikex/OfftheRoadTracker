@@ -2,6 +2,9 @@ import { getZones, getTracksWithNoCoords } from './scripts/dataSets.js'
 import { sortTracks } from './tracks.js'
 import { GeoJsonDataSource, Color, JulianDate } from "cesium";
 
+const minExtrusionHeight = 1200;
+const maxExtrusionHeight = 3000;
+
 export const countGeoJSON = async (type ,value) => {
   const nocoords = await getTracksWithNoCoords();
   let counter = 0
@@ -139,14 +142,15 @@ const isPointInPolygon = (point, polygonPositions) => {
 }
 
 const getColorMaterial = (extrudedHeight) => {
-    // Map extrusion height to color (white to red)
-    const minExtrusionHeight = 1200;
-    const maxExtrusionHeight = 3000;
-  
     const normalizedHeight = Math.min(Math.max((extrudedHeight - minExtrusionHeight) / (maxExtrusionHeight - minExtrusionHeight), 0), 1);
     const color = Color.fromCssColorString(`rgba(255, ${Math.round((1 - normalizedHeight) * 255)}, 0, 0.5)`);
-  
     return color;
+}
+
+export const getColorGradian = () => {
+  const minColor = getColorMaterial(minExtrusionHeight).toCssColorString();
+  const maxColor = getColorMaterial(maxExtrusionHeight).toCssColorString();
+  return [minColor, maxColor]
 }
 
 

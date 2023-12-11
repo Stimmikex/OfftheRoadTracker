@@ -1,10 +1,12 @@
 import { GeoJsonDataSource, Entity, Cartesian3, Color } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getData, getPointsOfIntrest, getTracks } from "./scripts/dataSets.js";
+import { getRoadMainColor, getRoadSecondColor } from "./scripts/utilityValues.js";
 
 /* eslint-disable */
+
 viewer.scene.globe.depthTestAgainstTerrain = true;
-Entity.supportsMaterialsforEntitiesOnTerrain(viewer.scene)
+Entity.supportsMaterialsforEntitiesOnTerrain(viewer.scene);
 
 export const displayData = async (data) => {
     /* eslint-disable */
@@ -106,12 +108,12 @@ export const getRoads = async () => {
     if(entity.properties.ref.getValue() === '208' ||
     entity.properties.ref.getValue() === 'F208' ||
     entity.properties.ref.getValue() === 'F225') {
-      entity.polyline.material = Color.RED;
+      entity.polyline.material = getRoadMainColor();
       entity.polyline.width = 6;
     }
     if((entity.properties.highway.getValue() === 'track' ||
     entity.properties.highway.getValue() === 'unclassified')){
-      entity.polyline.material = Color.HOTPINK;
+      entity.polyline.material = getRoadSecondColor();
       entity.polyline.width = 4;
     }
     filteredDataSource.entities.add(entity);
