@@ -19,10 +19,7 @@
           <li>
             <p>Locations</p>
             <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('peak')" :name="'Peaks'"></SideBarMenuItem>
-            <div>
-              <label>Waterfalls</label>
-              <input type="checkbox" value="Tracker" />
-            </div>
+            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('waterfall')" :name="'Waterfall'"></SideBarMenuItem>
           </li>
           <li>
             <div>
