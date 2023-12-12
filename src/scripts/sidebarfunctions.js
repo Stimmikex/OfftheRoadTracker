@@ -25,10 +25,7 @@ export const changeDisplay = async (data, type) => {
 
 export const checkIfDataSource = async (name, subtype) => {
   const dataSources = await viewer.dataSources.getByName(name);
-
-  if (dataSources.length > 0) {
-    console.log(dataSources);
-    
+  if (dataSources.length > 0) {    
     return dataSources.some((dataSource) => dataSource.type === subtype);
   } else {
     return false;

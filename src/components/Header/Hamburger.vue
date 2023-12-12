@@ -12,7 +12,7 @@
             <SideBarMenuItem :year="'All'" :type="'Tracks'"></SideBarMenuItem>
             <div v-if="uniqueYears && uniqueYears.length > 0">
               <div v-for="year in uniqueYears" :key="year">
-                <SideBarMenuItem :year="year" :type="'Tracks'"></SideBarMenuItem>
+                <SideBarMenuItem :type="'Tracks'" :data="sortTracks(year)" :name="year" :subtype="year"></SideBarMenuItem>
               </div>
             </div>
           </li>

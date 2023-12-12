@@ -1,13 +1,13 @@
 <template>
-    <li v-if="type == 'Tracks'">
+    <!-- <li v-if="type == 'Tracks'">
       <label>{{ year }}</label>
       <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(year), 'Tracks', year)"/>
     </li>
     <li v-else-if="type == 'Zones'">
       <label>{{ name }}</label>
       <input type="checkbox" value="Tracker" @click="toggleDisplay(data, 'Zones')"/>
-    </li>
-    <li v-else-if="type == 'Points'">
+    </li> -->
+    <li>
       {{ console.log(isChecked) }}
       <label>{{ name }}</label>
       <input type="checkbox" value="Tracker" :checked="isChecked" @click="toggleDisplay(data, type, subtype)"/>

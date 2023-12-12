@@ -85,7 +85,7 @@ export const sortTracks = async (year) => {
     }
     const redataSource = await GeoJsonDataSource.load(dataform, {clampToGround : true})
     redataSource.name = "Tracks"
-    redataSource.time = year
+    redataSource.type = year
     return redataSource
   }
 
