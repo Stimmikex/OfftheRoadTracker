@@ -1,6 +1,28 @@
-import { GeoJsonDataSource } from "cesium";
+import { GeoJsonDataSource, BillboardGraphics, VerticalOrigin, HeightReference } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
 import { getPointsOfIntrest } from "./scripts/dataSets.js";
+
+export const createDataSource = async (dataform, name, subtype) => {
+    const dataSource = await GeoJsonDataSource.load(dataform, {
+      clampToGround: true,
+    });
+  
+    dataSource.name = name;
+    dataSource.type = subtype;
+  
+    dataSource.entities.values.forEach((entity) => {
+      const billboardGraphics = new BillboardGraphics({
+        image: `./icons/${subtype}.png`, // Replace with the path to your billboard image
+        verticalOrigin: VerticalOrigin.BOTTOM,
+        heightReference: HeightReference.CLAMP_TO_GROUND,
+        scale: 0.05,
+      });
+  
+      entity.billboard = billboardGraphics;
+    });
+  
+    return dataSource;
+  };
 
 export const sortPointsOfIntrest = async (type, subtype) => {
     const filteredEntities = [];
@@ -20,10 +42,7 @@ export const sortPointsOfIntrest = async (type, subtype) => {
         "type": "FeatureCollection",
         "features": filteredEntities
     }      
-    const redataSource = await GeoJsonDataSource.load(dataform, {clampToGround : true})
-    redataSource.name = "Points"
-    redataSource.type = subtype
-    return redataSource
+    return createDataSource(dataform, "Points", subtype)
 }
 
 export default sortPointsOfIntrest;

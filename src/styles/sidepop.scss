@@ -2,21 +2,23 @@
 
 .sidePop {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    width: 20em;
+    flex-direction: row;
+    margin: 2em 0em;
+    width: 80%;
     padding: 1em;
     position: absolute;
     bottom: 4em;
     right: 0;
     justify-content: flex-start;
     color: white;
+    @media (min-width: 1200px) {
+        width: 40%;
+      }
     &__legendContainer {
         width: 100%;
         padding: 1em;
         background: $mainColor;
-        margin: 0.5em;
+        margin-left: 0.5em;
         text-align: justify;
         border-radius: 1em;
         &__gradianColor {
@@ -38,12 +40,29 @@
                 align-items: center;
             }
         }
+        &__icons {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 50% 50%;
+            div {
+                display: grid;
+                width: 100%;
+                grid-template-columns: 25% 25% 25% 25%;
+                grid-template-rows: 50% 50%;
+                img {
+                    width: 100%;
+                }
+            }
+        }
     }
     &__sliderContainer {
         width: 100%;
         padding: 1em;
         background: $mainColor;
         border-radius: 1em;
+        &:first-of-type {
+            height: 30%;
+        }
     }
     &__button {
         display: flex;

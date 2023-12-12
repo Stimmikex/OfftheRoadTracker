@@ -1,6 +1,7 @@
 import { getTracks, getTracksWithNoCoords } from './scripts/dataSets.js'
 import { GeoJsonDataSource } from "cesium";
 import { generateGEOJSON } from "./scripts/geoJson.js";
+import { createDataSource } from "./points.js"
 
 const convertTimeFormat = (value) => {
   const [day, month, year] = value.split('/').map(Number);
@@ -51,14 +52,8 @@ export const getTracksByDate = async (date) => {
       "type": "FeatureCollection",
       "features": filteredEntities
   }
-  const redataSource = await GeoJsonDataSource.load(dataform, {clampToGround : true})
-  redataSource.name = "Tracks"
-  redataSource.time = date
 
-  // eslint-disable-next-line no-undef
-  // viewer.dataSources.add(redataSource);
-  console.log(redataSource)
-  return redataSource
+  return createDataSource(dataform, "Tracks", date)
 }
 
 export const sortTracks = async (year) => {
@@ -83,10 +78,8 @@ export const sortTracks = async (year) => {
         "type": "FeatureCollection",
         "features": filteredEntities
     }
-    const redataSource = await GeoJsonDataSource.load(dataform, {clampToGround : true})
-    redataSource.name = "Tracks"
-    redataSource.type = year
-    return redataSource
+    
+    return createDataSource(dataform, "Tracks", year)
   }
 
   export const getUniqueYears = async () => {
