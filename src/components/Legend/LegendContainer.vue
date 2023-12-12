@@ -3,11 +3,11 @@
         <h2>Legend</h2>
         <p>Roads</p>
         <div class="sidePop__legendContainer__roads">
-            <div>
+            <div class="roadContainer">
                 <p>Main Roads</p>
                 <div :style="{ background: `${getRoadMainColor().toCssColorString()}`}" class="roadColor"></div>
             </div>
-            <div>
+            <div class="roadContainer">
                 <p>Side Roads</p>
                 <div :style="{ background: `${getRoadSecondColor().toCssColorString()}`}" class="roadColor"></div>
             </div>

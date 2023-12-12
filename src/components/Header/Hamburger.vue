@@ -18,8 +18,8 @@
           </li>
           <li>
             <p>Locations</p>
-            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('peak')" :name="'Peaks'"></SideBarMenuItem>
-            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('waterfall')" :name="'Waterfall'"></SideBarMenuItem>
+            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('natural', 'peak')" :name="'Peaks'" :subtype="'peak'"></SideBarMenuItem>
+            <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('waterway', 'waterfall')" :name="'Waterfall'" :subtype="'waterfall'"></SideBarMenuItem>
           </li>
           <li>
             <div>

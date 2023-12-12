@@ -11,14 +11,14 @@
     bottom: 4em;
     right: 0;
     justify-content: flex-start;
-    border-radius: 1em;
-    transition: opacity 200ms;
+    color: white;
     &__legendContainer {
         width: 100%;
         padding: 1em;
-        background: cadetblue;
+        background: $mainColor;
         margin: 0.5em;
         text-align: justify;
+        border-radius: 1em;
         &__gradianColor {
             height: 2em;
             display: flex;
@@ -32,12 +32,18 @@
             .roadColor {
                 height: 1em;
             }
+            .roadContainer {
+                display: grid;
+                grid-template-columns: 40% 60%;
+                align-items: center;
+            }
         }
     }
     &__sliderContainer {
         width: 100%;
         padding: 1em;
-        background: cadetblue;
+        background: $mainColor;
+        border-radius: 1em;
     }
     &__button {
         display: flex;

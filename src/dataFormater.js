@@ -1,4 +1,4 @@
-import { Entity, JulianDate} from "cesium";
+import { Entity, JulianDate } from "cesium";
 import { getRoads } from './roads.js'
 
 /* eslint-disable */

@@ -36,6 +36,7 @@ export const getRoads = async () => {
         entity.polyline.material = getRoadSecondColor();
         entity.polyline.width = 4;
       }
+      filteredDataSource.name = "Roads"
       filteredDataSource.entities.add(entity);
     });
 
