@@ -3,36 +3,34 @@
     justify-content: center;
     justify-items: center;
     align-items: center;
+    padding: 2em;
     img {
         width: 100%;
     }
   }
 
-.hamburger {
-    cursor: pointer;
+  .hamburger {
     display: flex;
     flex-direction: column;
-    width: 30px;
-    height: 20px;
-    justify-content: space-between;
-    margin-right: 10px;
-}
-.bar {
-    width: 30px;
-    height: 4px;
+    cursor: pointer;
+  }
+  
+  .bar {
+    width: 3em;
+    height: 0.2px;
     background-color: white;
-}
-
-.sidebar-container {
-    position: absolute;
-    background: #396c99;
-    z-index: 1;
-    /* margin-top: 20%; */
-    top: 10%;
-    width: 100%;
-    @media (min-width: 1200px) {
-        left: 10%;
-        top: auto;
-        width: 20%;
-    }
-}
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  
+  .cross-bar1 {
+    transform: rotate(-45deg) translate(-7px, 8px);
+  }
+  
+  .cross-bar2 {
+    opacity: 0;
+  }
+  
+  .cross-bar3 {
+    transform: rotate(45deg) translate(-10px, -8px);
+  }

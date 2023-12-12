@@ -62,5 +62,9 @@
         img {
             width: 100%;
         }
+        &:hover {
+            background: azure;
+            transition: 200ms;
+        }
     }
 }

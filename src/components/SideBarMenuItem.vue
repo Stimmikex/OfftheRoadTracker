@@ -1,12 +1,4 @@
 <template>
-    <!-- <li v-if="type == 'Tracks'">
-      <label>{{ year }}</label>
-      <input type="checkbox" value="Tracker" @click="toggleDisplay(sortTracks(year), 'Tracks', year)"/>
-    </li>
-    <li v-else-if="type == 'Zones'">
-      <label>{{ name }}</label>
-      <input type="checkbox" value="Tracker" @click="toggleDisplay(data, 'Zones')"/>
-    </li> -->
     <li>
       {{ console.log(isChecked) }}
       <label>{{ name }}</label>

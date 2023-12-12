@@ -1,34 +1,34 @@
 <template>
     <div class="hamburger-menu">
       <div class="hamburger" @click="toggleMenu">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+        <div :class="{ 'bar': true, 'cross-bar1': isMenuOpen }"></div>
+        <div :class="{ 'bar': true, 'cross-bar2': isMenuOpen }"></div>
+        <div :class="{ 'bar': true, 'cross-bar3': isMenuOpen }"></div>
       </div>
       <div v-if="isMenuOpen" class="sidebar-container">
         <ul class="sidebar-menu">
-          <li>
-            <p>Tracks</p>
-            <SideBarMenuItem :year="'All'" :type="'Tracks'"></SideBarMenuItem>
+          <div>
+            <h2>Tracks</h2>
             <div v-if="uniqueYears && uniqueYears.length > 0">
+              <SideBarMenuItem :year="'All'" :data="sortTracks('All')" :name="'All'" :type="'Tracks'"></SideBarMenuItem>
               <div v-for="year in uniqueYears" :key="year">
                 <SideBarMenuItem :type="'Tracks'" :data="sortTracks(year)" :name="year" :subtype="year"></SideBarMenuItem>
               </div>
             </div>
-          </li>
-          <li>
-            <p>Locations</p>
+          </div>
+          <div>
+            <h2>Locations</h2>
             <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('natural', 'peak')" :name="'Peaks'" :subtype="'peak'"></SideBarMenuItem>
             <SideBarMenuItem :type="'Points'" :data="sortPointsOfIntrest('waterway', 'waterfall')" :name="'Waterfall'" :subtype="'waterfall'"></SideBarMenuItem>
-          </li>
-          <li>
+          </div>
+          <div>
             <div>
-              <p>Zones</p>
+              <h2>Zones</h2>
               <SideBarMenuItem :type="'Zones'" :data="extrudZones()" :name="'Extruded'"></SideBarMenuItem>
               <SideBarMenuItem :type="'Zones'" :data="getZonesVolume()" :name="'All'"></SideBarMenuItem>
             </div>
-          </li>
-          <li><button @click="toggleLayers">Change Rastermap</button></li>
+          </div>
+          <li class="rastarMap"><button @click="toggleLayers">Change Rastermap</button></li>
         </ul>
       </div>
     </div>
