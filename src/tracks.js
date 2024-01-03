@@ -66,7 +66,6 @@ export const sortTracks = async (year) => {
             "year": entity.properties.year.getValue(),
             "name": entity.properties.name.getValue(),
             "date": entity.properties.date.getValue(),
-            "area": entity.properties.area.getValue(),
             "length": entity.properties.length.getValue(),
             "description": entity.properties.description.getValue()
           }
