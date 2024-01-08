@@ -1,19 +1,38 @@
 <template>
     <div class="sidePop__legendContainer">
         <h2>Legend</h2>
+        <h2>Tracks</h2>
         <div class="sidePop__legendContainer__icons">
             <div class="sidePop__legendContainer__icons__years">
-                <img v-bind:src="'./icons/All.png '"/>
-                <img v-bind:src="'./icons/2021.png '"/>
-                <img v-bind:src="'./icons/2022.png '"/>
-                <img v-bind:src="'./icons/2023.png '"/>
+                <div>
+                    <label>All</label>
+                    <img v-bind:src="'./icons/All.png '"/>
+                </div>
+                <div>
+                    <label>2023</label>
+                    <img v-bind:src="'./icons/2023.png '"/>
+                </div>
+                <div>
+                    <label>2022</label>
+                    <img v-bind:src="'./icons/2022.png '"/>
+                </div>
+                <div>
+                    <label>2021</label>
+                    <img v-bind:src="'./icons/2021.png '"/>
+                </div>
             </div>
             <div class="sidePop__legendContainer__icons__points">
-                <img v-bind:src="'./icons/peak.png '"/>
-                <img v-bind:src="'./icons/waterfall.png '"/>
+                <div>
+                    <label>Peaks</label>
+                    <img v-bind:src="'./icons/peak.png '"/>
+                </div>
+                <div>
+                    <label>Waterfalls</label>
+                    <img v-bind:src="'./icons/waterfall.png '"/>
+                </div>
             </div>
         </div>
-        <p>Roads</p>
+        <h2>Roads</h2>
         <div class="sidePop__legendContainer__roads">
             <div class="roadContainer">
                 <p>Main Roads</p>

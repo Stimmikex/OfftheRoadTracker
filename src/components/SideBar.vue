@@ -29,9 +29,6 @@ export default {
   data() {
     return {
       uniqueYears: [],
-      window: {
-        width: 0
-      }
     };
   },
   methods: {
@@ -40,11 +37,6 @@ export default {
     sortTracks,
     getZonesVolume,
     extrudZones,
-    handleResize() {
-      this.window.width = window.innerWidth;
-      this.window.height = window.innerHeight;
-      console.log(this.window.width)
-    }
   },
   async mounted() {
       try {
@@ -52,10 +44,6 @@ export default {
       } catch (error) {
         console.error('Error fetching unique years:', error);
       }
-  },
-  created() {
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
   },
 };
 </script>

@@ -5,13 +5,21 @@
         <SideBar />
       </div>
       <CesiumViewer @viewer-initialized="handleViewerInitialized" class="cesium-container__cesium"/>
-      <div class="sidePop__button" @click="toggleLegend">
+      <div class="sidePop__legend" @click="toggleLegend">
+        <label>Legend</label>
         <img src="../public/icons/tale.png">
       </div>
+      <div class="sidePop__timeline" @click="toggleTimeline">
+        <label>TimeLine</label>
+        <img src="../public/icons/timeline.png">
+      </div>
       <div class="sidePop" v-if="isLegendOpen">
-        <TimelineContainer></TimelineContainer>
         <LegendContainer></LegendContainer>
       </div>
+      <div class="sidePop" v-if="isTimelineOpen">
+        <TimelineContainer></TimelineContainer>
+      </div>
+      <ImportContainer></ImportContainer>
     </div>
   </main>
 </template>
@@ -24,6 +32,7 @@ import CesiumViewer from "./components/CesiumViewer.vue";
 import SideBar from "./components/SideBar.vue"
 import TimelineContainer from "./components/Timeline/TimelineContainer.vue";
 import LegendContainer from './components/Legend/LegendContainer.vue';
+import ImportContainer from './components/Imprint.vue';
 
 if(import.meta.hot) {
   import.meta.hot.on("vite;beforeUpdate", (e) => {
@@ -37,6 +46,7 @@ export default {
   data() {
     return {
       isLegendOpen: false,
+      isTimelineOpen: false,
       default_map_setup: false,
     };
   },
@@ -46,12 +56,18 @@ export default {
     SideBar,
     TimelineContainer,
     LegendContainer,
+    ImportContainer,
   },
   methods: {
     handleViewerInitialized(viewer) {
       window.cesiumViewer = viewer;
     },
+    toggleTimeline() {
+        this.isLegendOpen = false;
+        this.isTimelineOpen = !this.isTimelineOpen;
+      },
     toggleLegend() {
+        this.isTimelineOpen = false;
         this.isLegendOpen = !this.isLegendOpen;
       },
   },
