@@ -4,7 +4,7 @@
       <div class="cesium-container__sidebar">
         <SideBar />
       </div>
-      <CesiumViewer @viewer-initialized="handleViewerInitialized" class="cesium-container__cesium"/>
+      <CesiumViewer class="cesium-container__cesium"/>
       <div class="sidePop__legend" @click="toggleLegend">
         <label>Legend</label>
         <img src="../public/icons/tale.png">
@@ -59,9 +59,6 @@ export default {
     ImportContainer,
   },
   methods: {
-    handleViewerInitialized(viewer) {
-      window.cesiumViewer = viewer;
-    },
     toggleTimeline() {
         this.isLegendOpen = false;
         this.isTimelineOpen = !this.isTimelineOpen;
